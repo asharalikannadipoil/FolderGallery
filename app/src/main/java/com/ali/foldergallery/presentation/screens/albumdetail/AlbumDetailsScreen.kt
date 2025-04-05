@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,9 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.ali.foldergallery.R
 import com.ali.foldergallery.domain.model.MediaItem
 import com.ali.foldergallery.presentation.common.VideoThumbnail
 
@@ -138,16 +141,14 @@ fun MediaItem(
         if (mediaItem is MediaItem.Video) {
             Box(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
+                    .align(Alignment.Center)
                     .padding(4.dp)
-                    .size(24.dp)
-                    .background(Color.Black.copy(alpha = 0.6f))
-                    .padding(4.dp)
+                    .background(Color.Black.copy(alpha = 0.6f), shape = RoundedCornerShape(100))
             ) {
-                Text(
-                    text = "▶",
-                    color = Color.White,
-                    modifier = Modifier.align(Alignment.Center)
+                Icon(
+                    modifier = Modifier.size(40.dp),
+                    painter = painterResource(R.drawable.ic_play),
+                    contentDescription = "Play"
                 )
             }
         }

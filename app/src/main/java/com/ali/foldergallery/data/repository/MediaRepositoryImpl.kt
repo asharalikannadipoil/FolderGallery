@@ -5,6 +5,7 @@ import android.content.ContentUris
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import com.ali.foldergallery.domain.model.Album
 import com.ali.foldergallery.domain.model.AlbumType
 import com.ali.foldergallery.domain.model.MediaItem

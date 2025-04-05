@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.ali.foldergallery.presentation.screens.album.AlbumListScreen
 import com.ali.foldergallery.presentation.screens.albumdetail.AlbumDetailScreen
 import com.ali.foldergallery.presentation.screens.mediadetail.MediaDetailScreen
+import java.net.URLDecoder
 
 sealed class Screen(val route: String) {
     object Albums : Screen("albums")

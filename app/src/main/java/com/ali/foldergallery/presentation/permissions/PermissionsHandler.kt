@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import androidx.compose.ui.platform.LocalView
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 
@@ -29,7 +28,6 @@ fun PermissionsHandler(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val activity = context as? ComponentActivity
-    val view = LocalView.current
 
     val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         listOf(
