@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Date
 import javax.inject.Inject
@@ -116,6 +117,83 @@ class MediaRepositoryImpl @Inject constructor(
 
         emit(albumList)
     }.flowOn(Dispatchers.IO)
+
+    override fun getMediaInAlbum(albumId: String, albumType: AlbumType): Flow<List<MediaItem>> =
+        flow {
+            val mediaItems = when (albumType) {
+                AlbumType.ALL_IMAGES -> {
+                    getMediaItems(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, isVideo = false)
+                }
+
+                AlbumType.ALL_VIDEOS -> {
+                    getMediaItems(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, isVideo = true)
+                }
+
+                AlbumType.CAMERA -> {
+                    val allMedia = mutableListOf<MediaItem>()
+                    allMedia.addAll(
+                        getMediaItems(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            isVideo = false
+                        )
+                    )
+                    allMedia.addAll(
+                        getMediaItems(
+                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            isVideo = true
+                        )
+                    )
+                    allMedia.filter { mediaItem ->
+                        val folderName = File(File(mediaItem.path).parent ?: "").name
+                        folderName == CAMERA_FOLDER
+                    }
+                }
+
+                AlbumType.REGULAR -> {
+                    val allMedia = mutableListOf<MediaItem>()
+                    allMedia.addAll(
+                        getMediaItems(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            isVideo = false
+                        )
+                    )
+                    allMedia.addAll(
+                        getMediaItems(
+                            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                            isVideo = true
+                        )
+                    )
+                    allMedia.filter { mediaItem ->
+                        File(mediaItem.path).parent == albumId
+                    }
+                }
+            }
+            emit(mediaItems)
+        }.flowOn(Dispatchers.IO)
+
+    override suspend fun getMediaItem(mediaId: Long): MediaItem? = withContext(Dispatchers.IO) {
+        var mediaItem: MediaItem? = null
+
+        // Try to find in images
+        getMediaItems(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            isVideo = false
+        ).find { it.id == mediaId }?.let {
+            mediaItem = it
+        }
+
+        // If not found, try videos
+        if (mediaItem == null) {
+            getMediaItems(
+                MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                isVideo = true
+            ).find { it.id == mediaId }?.let {
+                mediaItem = it
+            }
+        }
+
+        mediaItem
+    }
 
     private fun getMediaItems(uri: Uri, isVideo: Boolean): List<MediaItem> {
         val mediaItems = mutableListOf<MediaItem>()
