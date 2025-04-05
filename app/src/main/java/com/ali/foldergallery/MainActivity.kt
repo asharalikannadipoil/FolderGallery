@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.ali.foldergallery.presentation.album.AlbumListUiState
 import com.ali.foldergallery.presentation.album.AlbumListViewModel
+import com.ali.foldergallery.presentation.navigation.AppNavigation
 import com.ali.foldergallery.presentation.permissions.PermissionsHandler
 import com.ali.foldergallery.ui.theme.FolderGalleryTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,21 +28,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModel: AlbumListViewModel by viewModels()
+//        val viewModel: AlbumListViewModel by viewModels()
         enableEdgeToEdge()
         setContent {
             FolderGalleryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     PermissionsHandler {
-                        val albumstate = viewModel.uiState.collectAsState()
-                        if (albumstate.value is AlbumListUiState.Success) {
-                            val albums = (albumstate.value as AlbumListUiState.Success).albums
-                            LazyColumn(modifier = Modifier.padding(innerPadding)) {
-                                items(albums) {
-                                    Text(text = it.name)
-                                }
-                            }
-                        }
+                        val navController = rememberNavController()
+                        AppNavigation(navController = navController)
                     }
                 }
             }
