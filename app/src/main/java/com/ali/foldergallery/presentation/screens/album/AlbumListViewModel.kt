@@ -1,4 +1,4 @@
-package com.ali.foldergallery.presentation.album
+package com.ali.foldergallery.presentation.screens.album
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +23,7 @@ class AlbumListViewModel@Inject constructor(
         loadAlbums()
     }
 
-    fun loadAlbums() {
+    private fun loadAlbums() {
         viewModelScope.launch {
             try {
                 _uiState.value = AlbumListUiState.Loading
@@ -38,7 +38,7 @@ class AlbumListViewModel@Inject constructor(
 }
 
 sealed class AlbumListUiState {
-    object Loading : AlbumListUiState()
+    data object Loading : AlbumListUiState()
     data class Success(val albums: List<Album>) : AlbumListUiState()
     data class Error(val message: String) : AlbumListUiState()
 }

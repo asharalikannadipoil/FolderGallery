@@ -1,4 +1,4 @@
-package com.ali.foldergallery.presentation.albumdetail
+package com.ali.foldergallery.presentation.screens.albumdetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -30,12 +30,11 @@ class AlbumDetailViewModel @Inject constructor(
         loadMediaItems()
     }
 
-    fun loadMediaItems() {
+    private fun loadMediaItems() {
         viewModelScope.launch {
             try {
                 _uiState.value = AlbumDetailUiState.Loading
                 getMediaInAlbumUseCase(albumId, albumType).collectLatest { mediaItems ->
-                    val items = mediaItems
                     _uiState.value = AlbumDetailUiState.Success(
                         albumName = albumName,
                         mediaItems = mediaItems
@@ -49,7 +48,7 @@ class AlbumDetailViewModel @Inject constructor(
 }
 
 sealed class AlbumDetailUiState {
-    object Loading : AlbumDetailUiState()
+    data object Loading : AlbumDetailUiState()
     data class Success(
         val albumName: String,
         val mediaItems: List<MediaItem>

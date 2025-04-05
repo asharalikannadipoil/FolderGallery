@@ -1,4 +1,4 @@
-package com.ali.foldergallery.presentation.mediadetail
+package com.ali.foldergallery.presentation.screens.mediadetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -44,7 +44,7 @@ class MediaDetailViewModel @Inject constructor(
 }
 
 sealed class MediaDetailUiState {
-    object Loading : MediaDetailUiState()
+    data object Loading : MediaDetailUiState()
     data class Success(val mediaItem: MediaItem) : MediaDetailUiState()
     data class Error(val message: String) : MediaDetailUiState()
 }

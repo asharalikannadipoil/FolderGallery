@@ -1,4 +1,4 @@
-package com.ali.foldergallery.ui.theme
+package com.ali.foldergallery.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

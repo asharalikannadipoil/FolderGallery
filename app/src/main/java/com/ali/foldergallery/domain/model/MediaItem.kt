@@ -2,7 +2,7 @@ package com.ali.foldergallery.domain.model
 
 import android.net.Uri
 import java.util.Date
-
+//Added sealed class for better organization and maintainability
 sealed class MediaItem {
     abstract val id: Long
     abstract val uri: Uri

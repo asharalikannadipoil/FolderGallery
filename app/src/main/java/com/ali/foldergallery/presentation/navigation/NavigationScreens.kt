@@ -8,9 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.ali.foldergallery.presentation.album.AlbumListScreen
-import com.ali.foldergallery.presentation.albumdetail.AlbumDetailScreen
-import com.ali.foldergallery.presentation.mediadetail.MediaDetailScreen
+import com.ali.foldergallery.presentation.screens.album.AlbumListScreen
+import com.ali.foldergallery.presentation.screens.albumdetail.AlbumDetailScreen
+import com.ali.foldergallery.presentation.screens.mediadetail.MediaDetailScreen
 
 sealed class Screen(val route: String) {
     object Albums : Screen("albums")
