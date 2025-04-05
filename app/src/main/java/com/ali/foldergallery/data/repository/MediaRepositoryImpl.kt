@@ -104,6 +104,7 @@ class MediaRepositoryImpl @Inject constructor(
         // Add regular albums
         albums.forEach { (path, items) ->
             val folderName = File(path).name
+            if(folderName == CAMERA_FOLDER) return@forEach
             albumList.add(
                 Album(
                     id = path,
