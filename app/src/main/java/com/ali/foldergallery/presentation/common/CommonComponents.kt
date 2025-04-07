@@ -125,7 +125,6 @@ fun ZoomableAsyncImage(
                 )
         )
 
-        // Add a reset button when zoomed in
         if (scale > 1f) {
             IconButton(
                 onClick = { resetZoomAndPosition() },
@@ -135,7 +134,6 @@ fun ZoomableAsyncImage(
                     .size(36.dp)
                     .background(Color.Gray.copy(alpha = 0.7f), shape = CircleShape)
             ) {
-                // You can use an appropriate icon here
                 Text(
                     text = "×",
                     color = Color.White,

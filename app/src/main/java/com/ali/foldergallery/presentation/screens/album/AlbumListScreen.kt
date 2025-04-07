@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -42,7 +43,9 @@ fun AlbumListScreen(
                 actions = {
                     IconButton(onClick = { isGridView = !isGridView }) {
                         Icon(
-                            painter = if (isGridView) painterResource(R.drawable.ic_list) else painterResource(R.drawable.ic_grid),
+                            painter = if (isGridView) painterResource(R.drawable.ic_list) else painterResource(
+                                R.drawable.ic_grid
+                            ),
                             contentDescription = if (isGridView) "Switch to List View" else "Switch to Grid View"
                         )
                     }
@@ -165,8 +168,10 @@ fun AlbumGridItem(
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text(
+                    maxLines = 1,
                     text = album.name,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = "${album.mediaCount} items",
@@ -227,8 +232,10 @@ fun AlbumListItem(
                     .weight(1f)
             ) {
                 Text(
+                    maxLines = 1,
                     text = album.name,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = "${album.mediaCount} items",

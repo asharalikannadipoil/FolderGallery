@@ -23,7 +23,9 @@ class MediaRepositoryImpl @Inject constructor(
     private val contentResolver: ContentResolver
 ) : MediaRepository {
     companion object {
-        private const val CAMERA_FOLDER = "Camera"
+        // I have added local capture folders of few device vendors, we need to add extra folders,
+        // if we find few more - I have checked only for Samsung and Pixel phone
+        private val CAMERA_FOLDERS = listOf("Camera","Pictures")
     }
 
     override fun getAlbums(): Flow<List<Album>> = flow {
@@ -43,7 +45,7 @@ class MediaRepositoryImpl @Inject constructor(
             val folder = File(image.path).parent ?: ""
             val folderName = File(folder).name
 
-            if (folderName == CAMERA_FOLDER) {
+            if (CAMERA_FOLDERS.contains(folderName)) {
                 cameraItems.add(image)
             }
 
@@ -59,11 +61,11 @@ class MediaRepositoryImpl @Inject constructor(
 
             // Get folder name
             val folder = File(video.path).parent ?: ""
-            val folderName = File(folder).name
+//            val folderName = File(folder).name
 
-            if (folderName == CAMERA_FOLDER) {
-                cameraItems.add(video)
-            }
+//            if (folderName == CAMERA_FOLDER) {
+//                cameraItems.add(video)
+//            }
 
             albums.getOrPut(folder) { mutableListOf() }.add(video)
         }
@@ -105,7 +107,7 @@ class MediaRepositoryImpl @Inject constructor(
         // Add regular albums
         albums.forEach { (path, items) ->
             val folderName = File(path).name
-            if(folderName == CAMERA_FOLDER) return@forEach
+            if(CAMERA_FOLDERS.contains(folderName)) return@forEach
             albumList.add(
                 Album(
                     id = path,
@@ -147,7 +149,7 @@ class MediaRepositoryImpl @Inject constructor(
                     )
                     allMedia.filter { mediaItem ->
                         val folderName = File(File(mediaItem.path).parent ?: "").name
-                        folderName == CAMERA_FOLDER
+                        CAMERA_FOLDERS.contains(folderName)
                     }
                 }
 

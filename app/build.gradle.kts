@@ -68,28 +68,25 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
-    // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
-    // Coil
-    implementation("io.coil-kt:coil-compose:2.5.0")
-    implementation("io.coil-kt:coil-video:2.4.0")
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("androidx.media3:media3-ui:1.2.0")
-    implementation("androidx.media3:media3-exoplayer:1.2.0")
+    implementation(libs.coil.compose)
+    implementation(libs.coil.video)
 
-    //test
-    testImplementation("io.mockk:mockk:1.13.9")
-    testImplementation("io.mockk:mockk-android:1.13.9")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("androidx.test:core:1.5.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.22")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.22")
-    testImplementation("org.robolectric:robolectric:4.11.1")
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.exoplayer)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.robolectric)
 
 }

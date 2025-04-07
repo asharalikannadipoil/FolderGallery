@@ -146,6 +146,7 @@ fun MediaItem(
                     .background(Color.Black.copy(alpha = 0.6f), shape = RoundedCornerShape(100))
             ) {
                 Icon(
+                    tint = Color.White,
                     modifier = Modifier.size(40.dp),
                     painter = painterResource(R.drawable.ic_play),
                     contentDescription = "Play"
