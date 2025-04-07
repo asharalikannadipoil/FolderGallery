@@ -23,7 +23,7 @@ class AlbumListViewModel@Inject constructor(
         loadAlbums()
     }
 
-    private fun loadAlbums() {
+    internal fun loadAlbums() {
         viewModelScope.launch {
             try {
                 _uiState.value = AlbumListUiState.Loading

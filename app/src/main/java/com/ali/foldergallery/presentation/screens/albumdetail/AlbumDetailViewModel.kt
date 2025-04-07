@@ -30,7 +30,7 @@ class AlbumDetailViewModel @Inject constructor(
         loadMediaItems()
     }
 
-    private fun loadMediaItems() {
+    internal fun loadMediaItems() {
         viewModelScope.launch {
             try {
                 _uiState.value = AlbumDetailUiState.Loading
